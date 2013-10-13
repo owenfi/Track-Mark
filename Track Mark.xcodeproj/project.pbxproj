@@ -21,6 +21,8 @@
 		5AFEFAAC1809FBDE00F9BCC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFEFA8E1809FBDD00F9BCC4 /* UIKit.framework */; };
 		5AFEFAB41809FBDE00F9BCC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5AFEFAB21809FBDE00F9BCC4 /* InfoPlist.strings */; };
 		5AFEFAB61809FBDE00F9BCC4 /* Track_MarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AFEFAB51809FBDE00F9BCC4 /* Track_MarkTests.m */; };
+		5AFEFAC0180A05C900F9BCC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFEFABF180A05C900F9BCC4 /* AVFoundation.framework */; };
+		5AFEFAC7180A4C7100F9BCC4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFEFAC6180A4C7100F9BCC4 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		5AFEFAB11809FBDE00F9BCC4 /* Track MarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Track MarkTests-Info.plist"; sourceTree = "<group>"; };
 		5AFEFAB31809FBDE00F9BCC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5AFEFAB51809FBDE00F9BCC4 /* Track_MarkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Track_MarkTests.m; sourceTree = "<group>"; };
+		5AFEFABF180A05C900F9BCC4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5AFEFAC6180A4C7100F9BCC4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AFEFAC7180A4C7100F9BCC4 /* MessageUI.framework in Frameworks */,
+				5AFEFAC0180A05C900F9BCC4 /* AVFoundation.framework in Frameworks */,
 				5AFEFA8D1809FBDD00F9BCC4 /* CoreGraphics.framework in Frameworks */,
 				5AFEFA8F1809FBDD00F9BCC4 /* UIKit.framework in Frameworks */,
 				5AFEFA8B1809FBDD00F9BCC4 /* Foundation.framework in Frameworks */,
@@ -101,6 +107,8 @@
 		5AFEFA891809FBDD00F9BCC4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5AFEFAC6180A4C7100F9BCC4 /* MessageUI.framework */,
+				5AFEFABF180A05C900F9BCC4 /* AVFoundation.framework */,
 				5AFEFA8A1809FBDD00F9BCC4 /* Foundation.framework */,
 				5AFEFA8C1809FBDD00F9BCC4 /* CoreGraphics.framework */,
 				5AFEFA8E1809FBDD00F9BCC4 /* UIKit.framework */,
