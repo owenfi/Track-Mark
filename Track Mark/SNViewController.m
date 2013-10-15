@@ -21,8 +21,15 @@
     self.playbackPosition.value = 0.0;
     
     NSError *error;
-    NSURL *fileURL = [[NSBundle mainBundle] URLForResource:@"dwell35" withExtension:@"m4a"];
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:&error];
+    
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"do36.mp3"];
+    
+    NSURL *audioPath = [NSURL fileURLWithPath:filePath];
+    
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:audioPath error:&error];
     if(error)
         NSLog(@"ERROR LOADING: %@",error);
     
@@ -30,7 +37,7 @@
     NSNumber *n = [nsd objectForKey:@"CurrentPosition"];
     self.player.currentTime = n.doubleValue;
 
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(update:) userInfo:self repeats:YES];
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(update:) userInfo:self repeats:YES];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressPlay:)];
     [self.playButton addGestureRecognizer:longPress];
@@ -69,20 +76,26 @@
 
 
 -(void)update:(id)sender {
-    CGFloat positionDiv = self.player.currentTime / self.player.duration;
-    self.playbackPosition.value = positionDiv;
-    
-    [self updateDetails];
+    if (isScrubbing) {
+        // Do nothing if scrubbing
+        
+    } else {
+        CGFloat positionDiv = self.player.currentTime / self.player.duration;
+        self.playbackPosition.value = positionDiv;
+        
+        [self updateDetails:self.player.currentTime];
+    }
     
     NSUserDefaults *nsd = [NSUserDefaults standardUserDefaults];
     [nsd setObject:[NSNumber numberWithDouble:self.player.currentTime] forKey:@"CurrentPosition"];
 }
 
--(void)updateDetails {
+-(void)updateDetails:(NSTimeInterval)theTime {
     
-    self.playbackDetails.text = [NSString stringWithFormat:@"%@ of %@",
-                                 [self timestring:self.player.currentTime],
-                                 [self timestring:self.player.duration]];
+    self.playbackDetails.text = [NSString stringWithFormat:@"%@ of %@ for file %@",
+                                 [self timestring:theTime],
+                                 [self timestring:self.player.duration],
+                                 [[self.player.url absoluteString] lastPathComponent]];
 }
 
 -(NSString *)timestring:(double)input {
@@ -106,17 +119,25 @@
 }
 
 -(IBAction)sliderMove:(id)sender{
+    isScrubbing = YES;
     
     CGFloat newTime = self.player.duration * self.playbackPosition.value;
+//    self.player.currentTime = newTime;
+    
+    [self updateDetails:newTime];
+    
+}
+
+-(IBAction)sliderTouchUp:(id)sender {
+    CGFloat newTime = self.player.duration * self.playbackPosition.value;
     self.player.currentTime = newTime;
-    
-    [self updateDetails];
-    
+    [self updateDetails:self.player.currentTime];
+    isScrubbing = NO;
 }
 
 -(IBAction)backButton:(id)sender{
     NSTimeInterval time = self.player.currentTime;
-    time = time - 46;
+    time = time - 45;
     
     if(time < 0)
         time = 0;
@@ -138,7 +159,9 @@
     NSArray *one = [nsd objectForKey:@"MISC"];
     NSArray *two = [nsd objectForKey:@"LINK"];
     NSArray *thr = [nsd objectForKey:@"EDIT"];
-    [self openMail:[NSString stringWithFormat:@"Message:\n%@ %@ %@",one,two,thr] ];
+    
+    NSString *filename = [[self.player.url absoluteString] lastPathComponent];
+    [self openMail:[NSString stringWithFormat:@"Details for file:%@\n%@ %@ %@",filename,one,two,thr]];
 }
 
 

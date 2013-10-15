@@ -469,6 +469,7 @@
 				5AFEFABB1809FBDE00F9BCC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5AFEFABC1809FBDE00F9BCC4 /* Build configuration list for PBXNativeTarget "Track MarkTests" */ = {
 			isa = XCConfigurationList;
@@ -477,6 +478,7 @@
 				5AFEFABE1809FBDE00F9BCC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

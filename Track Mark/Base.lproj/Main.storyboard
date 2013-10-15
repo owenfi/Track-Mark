@@ -23,6 +23,8 @@
                                 <color key="thumbTintColor" cyan="0.0" magenta="0.0" yellow="0.0" black="0.52016129032258063" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <connections>
                                     <action selector="sliderMove:" destination="vXZ-lx-hvc" eventType="valueChanged" id="Fjf-QO-Bvd"/>
+                                    <action selector="sliderTouchUp:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="62d-P5-nPk"/>
+                                    <action selector="sliderTouchUp:" destination="vXZ-lx-hvc" eventType="touchUpOutside" id="cBA-Nm-hXo"/>
                                 </connections>
                             </slider>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqi-IF-nqV">

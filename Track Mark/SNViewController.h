@@ -12,6 +12,7 @@
 
 @interface SNViewController : UIViewController <MFMailComposeViewControllerDelegate, UIActionSheetDelegate> {
     bool isRemoveActionShowing;
+    bool isScrubbing;
 }
 
 @property (nonatomic, retain) AVAudioPlayer *player;
