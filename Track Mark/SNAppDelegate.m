@@ -12,7 +12,48 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    
+    NSURL *url = (NSURL *)[launchOptions valueForKey:UIApplicationLaunchOptionsURLKey];
+    if ([url isFileURL])
+    {
+        // Handle file being passed in
+        
+    }
+    else
+    {
+        // Handle custom URL scheme
+    }
+    
+    
+    return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
+    //Move the file from Documents/Inbox to Documents/
+    
+    // TODO: Handle this on a background thread if that works fine for files
+    // TODO: Could make this just iterate across all files in inbox
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filename = [[url absoluteString] lastPathComponent];
+
+    NSURL *filePath = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:filename]];
+    
+    NSError *error;
+    [[NSData dataWithContentsOfURL:url] writeToURL:filePath options:NSDataWritingWithoutOverwriting error:&error];
+    
+    if(error != nil)
+        NSLog(@"ERROR: Unable to save file %@",error);
+    else {
+        [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&error];
+        
+        if(error != nil)
+            NSLog(@"ERROR: Unable to remove %@",error);
+    }
+    
+    //TODO: If the VC has no notes or loaded file then open this file right away
+    
     return YES;
 }
 							
