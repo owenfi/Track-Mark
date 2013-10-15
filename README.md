@@ -12,6 +12,7 @@ track with a note for later editing/review.
 
 
 The features:
+
 1. Back 45 button - steps back 45 seconds
 1. Play/Pause
 1. Send - emails a message with the notes
