@@ -32,27 +32,33 @@
     
     //Move the file from Documents/Inbox to Documents/
     
-    // TODO: Handle this on a background thread if that works fine for files
     // TODO: Could make this just iterate across all files in inbox
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filename = [[url absoluteString] lastPathComponent];
-
-    NSURL *filePath = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:filename]];
-    
-    NSError *error;
-    [[NSData dataWithContentsOfURL:url] writeToURL:filePath options:NSDataWritingWithoutOverwriting error:&error];
-    
-    if(error != nil)
-        NSLog(@"ERROR: Unable to save file %@",error);
-    else {
-        [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&error];
+    dispatch_queue_t queue;
+    queue = dispatch_queue_create("com.swingingsultan.filequeue", NULL);
+    dispatch_async(queue, ^{
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *filename = [[url absoluteString] lastPathComponent];
+        
+        NSURL *filePath = [NSURL fileURLWithPath:[documentsDirectory stringByAppendingPathComponent:filename]];
+        
+        NSError *error;
+        [[NSData dataWithContentsOfURL:url] writeToURL:filePath options:NSDataWritingFileProtectionNone error:&error];
         
         if(error != nil)
-            NSLog(@"ERROR: Unable to remove %@",error);
-    }
+            NSLog(@"ERROR: Unable to save file %@",error);
+        else {
+            [[NSFileManager defaultManager] removeItemAtPath:[url path] error:&error];
+            
+            if(error != nil)
+                NSLog(@"ERROR: Unable to remove %@",error);
+        }
+        
+        //TODO: If the VC has no notes or loaded file then open this file right away
+
+    });
+
     
-    //TODO: If the VC has no notes or loaded file then open this file right away
     
     return YES;
 }
