@@ -46,17 +46,56 @@
 -(void)longPressPlay:(id)sender {
     
     if(!isRemoveActionShowing) {
-        isRemoveActionShowing = YES;
+        //If any edits exist then show warning, otherwise
         
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Remove All Edits" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Notes" otherButtonTitles:nil, nil];
-        [actionSheet showInView:self.view];
+        if([self isAnyEditMade]) {
+            
+            isRemoveActionShowing = YES;
+            
+            UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Loading a new file will remove annotations." delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove Annotations and Load" otherButtonTitles:nil, nil];
+            [actionSheet showInView:self.view];
+            
+        } else {
+            
+            [self loadNewAudioFile];
+            
+        }
+        
+
     }
+}
+
+-(BOOL)isAnyEditMade {
+    
+    NSUserDefaults *nsd = [NSUserDefaults standardUserDefaults];
+    NSArray *a = [nsd objectForKey:@"MISC"];
+    NSArray *b = [nsd objectForKey:@"LINK"];
+    NSArray *c = [nsd objectForKey:@"EDIT"];
+    
+    if(a.count > 0 || b.count > 0 || c.count > 0) {
+        return TRUE;
+    }
+    
+    return FALSE;
+}
+
+-(void)loadNewAudioFile {
+    // First remove
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+
+    UIViewController *uivc = [storyboard instantiateViewControllerWithIdentifier:@"Loader"];
+    
+    [self presentViewController:uivc animated:YES completion:^{
+        // Done showing
+    }];
+    
 }
 
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if(buttonIndex == 0) {
         NSLog(@"Remove");
         [self wipeDefaults];
+        [self loadNewAudioFile];
     } else if (buttonIndex == 1) {
         NSLog(@"Cancel");
     } else {

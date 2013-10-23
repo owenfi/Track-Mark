@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A48B5E91815FE280050B798 /* SNLoadFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A48B5E71815FE280050B798 /* SNLoadFileViewController.m */; };
 		5AFEFA8B1809FBDD00F9BCC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFEFA8A1809FBDD00F9BCC4 /* Foundation.framework */; };
 		5AFEFA8D1809FBDD00F9BCC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFEFA8C1809FBDD00F9BCC4 /* CoreGraphics.framework */; };
 		5AFEFA8F1809FBDD00F9BCC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AFEFA8E1809FBDD00F9BCC4 /* UIKit.framework */; };
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A48B5E61815FE280050B798 /* SNLoadFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNLoadFileViewController.h; sourceTree = "<group>"; };
+		5A48B5E71815FE280050B798 /* SNLoadFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNLoadFileViewController.m; sourceTree = "<group>"; };
 		5AFEFA871809FBDD00F9BCC4 /* Track Mark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Track Mark.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AFEFA8A1809FBDD00F9BCC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		5AFEFA8C1809FBDD00F9BCC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -85,6 +88,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A48B5EB181812B90050B798 /* Load Files */ = {
+			isa = PBXGroup;
+			children = (
+				5A48B5E61815FE280050B798 /* SNLoadFileViewController.h */,
+				5A48B5E71815FE280050B798 /* SNLoadFileViewController.m */,
+			);
+			name = "Load Files";
+			sourceTree = "<group>";
+		};
 		5AFEFA7E1809FBDD00F9BCC4 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +132,7 @@
 		5AFEFA901809FBDD00F9BCC4 /* Track Mark */ = {
 			isa = PBXGroup;
 			children = (
+				5A48B5EB181812B90050B798 /* Load Files */,
 				5AFEFA991809FBDD00F9BCC4 /* SNAppDelegate.h */,
 				5AFEFA9A1809FBDD00F9BCC4 /* SNAppDelegate.m */,
 				5AFEFA9C1809FBDD00F9BCC4 /* Main.storyboard */,
@@ -259,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AFEFA971809FBDD00F9BCC4 /* main.m in Sources */,
+				5A48B5E91815FE280050B798 /* SNLoadFileViewController.m in Sources */,
 				5AFEFAA11809FBDD00F9BCC4 /* SNViewController.m in Sources */,
 				5AFEFA9B1809FBDD00F9BCC4 /* SNAppDelegate.m in Sources */,
 			);
