@@ -79,7 +79,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    cell.textLabel.text = [files objectAtIndex:[self fileIndexForIndexPath:indexPath]];
+    cell.textLabel.text = [[files objectAtIndex:[self fileIndexForIndexPath:indexPath]] stringByRemovingPercentEncoding];
     cell.detailTextLabel.text = @"Row";
     
     // Configure the cell...

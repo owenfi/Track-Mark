@@ -144,10 +144,13 @@
 
 -(void)updateDetails:(NSTimeInterval)theTime {
     
+    NSString *filePrettyStr = [[self.player.url absoluteString] lastPathComponent];
+    filePrettyStr = [filePrettyStr stringByRemovingPercentEncoding];
+    filePrettyStr = [filePrettyStr stringByRemovingPercentEncoding]; //silly but there are double percent encoded strings (i.e. a %25 followed be 20, which expands to %20...)
     self.playbackDetails.text = [NSString stringWithFormat:@"%@ of %@ for file %@",
                                  [self timestring:theTime],
                                  [self timestring:self.player.duration],
-                                 [[self.player.url absoluteString] lastPathComponent]];
+                                 filePrettyStr];
 }
 
 -(NSString *)timestring:(double)input {
