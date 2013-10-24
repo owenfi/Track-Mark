@@ -21,6 +21,8 @@
 @property (nonatomic, retain) IBOutlet UILabel *playbackDetails;
 @property (nonatomic, retain) IBOutlet UIButton *playButton;
 
+-(void)loadFileNamed:(NSString*)filename;
+
 -(IBAction)sliderMove:(id)sender;
 -(IBAction)backButton:(id)sender;
 -(IBAction)playButton:(id)sender;

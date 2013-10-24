@@ -7,6 +7,7 @@
 //
 
 #import "SNViewController.h"
+#import "SNLoadFileViewController.h"
 
 @interface SNViewController ()
 
@@ -18,30 +19,40 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.playbackPosition.value = 0.0;
-    
-    NSError *error;
-    
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"do36.mp3"];
-    
-    NSURL *audioPath = [NSURL fileURLWithPath:filePath];
-    
-    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:audioPath error:&error];
-    if(error)
-        NSLog(@"ERROR LOADING: %@",error);
     
     NSUserDefaults *nsd = [NSUserDefaults standardUserDefaults];
+
+    [self loadFileNamed:[nsd objectForKey:@"CurrentFileName"]];
+
     NSNumber *n = [nsd objectForKey:@"CurrentPosition"];
     self.player.currentTime = n.doubleValue;
+    self.playbackPosition.value = self.player.currentTime;
 
     self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:.2 target:self selector:@selector(update:) userInfo:self repeats:YES];
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressPlay:)];
     [self.playButton addGestureRecognizer:longPress];
 }
+
+-(void)loadFileNamed:(NSString*)filename {
+    
+    if(filename != nil) {
+        NSError *error;
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = [paths objectAtIndex:0];
+        NSString *filePath = [documentsDirectory stringByAppendingPathComponent:filename];
+        
+        NSURL *audioPath = [NSURL fileURLWithPath:filePath];
+        
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:audioPath error:&error];
+        if(error) {
+            NSLog(@"ERROR LOADING: %@",error);
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:filename forKey:@"CurrentFileName"];
+        }
+    }
+}
+
 
 -(void)longPressPlay:(id)sender {
     
@@ -84,6 +95,8 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 
     UIViewController *uivc = [storyboard instantiateViewControllerWithIdentifier:@"Loader"];
+    SNLoadFileViewController *loadFileTableVC = uivc.childViewControllers[0];
+    loadFileTableVC.delegate = self;
     
     [self presentViewController:uivc animated:YES completion:^{
         // Done showing

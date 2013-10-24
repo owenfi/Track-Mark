@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SNViewController.h"
 
-@interface SNLoadFileViewController : UITableViewController
+@interface SNLoadFileViewController : UITableViewController {
+    NSMutableArray *files;
+}
+
+@property (nonatomic, weak) id delegate;
 
 -(IBAction)cancel:(id)sender;
 
