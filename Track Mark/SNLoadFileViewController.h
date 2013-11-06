@@ -15,6 +15,8 @@
 
 @property (nonatomic, weak) id delegate;
 
+@property (nonatomic, retain) NSArray *inProgressDownloads;
+
 -(IBAction)cancel:(id)sender;
 
 @end

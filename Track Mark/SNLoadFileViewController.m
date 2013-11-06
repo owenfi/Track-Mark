@@ -53,16 +53,39 @@
 
 #pragma mark - Table view data source
 
+-(NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    
+    if(section == 0)
+        return @"Download:";
+    
+    if(section == 1)
+        return @"Local files:";
+    
+    if(section == 2)
+        return @"Sample:";
+    
+    return nil;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 1;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return [files count];
+    if(section == 0) {
+        return 1 + [self.inProgressDownloads count];
+    }
+
+    if(section == 1)
+        return [files count];
+    
+    if(section == 2)
+        return 1;
+    
+    return 0;
 }
 
 -(NSUInteger)fileIndexForIndexPath:(NSIndexPath*)indexPath {
@@ -74,14 +97,28 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    static NSString *URLCellId = @"URLCell";
+    
+    if(indexPath.section == 0 && indexPath.row == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:URLCellId];
+        return cell;
+    }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
+
+    // Load the Documents directory file list
+    if(indexPath.section == 1) {
+        cell.textLabel.text = [[files objectAtIndex:[self fileIndexForIndexPath:indexPath]] stringByRemovingPercentEncoding];
+        cell.detailTextLabel.text = @"Row";
+    }
     
-    cell.textLabel.text = [[files objectAtIndex:[self fileIndexForIndexPath:indexPath]] stringByRemovingPercentEncoding];
-    cell.detailTextLabel.text = @"Row";
-    
+    if(indexPath.section == 2) {
+        cell.textLabel.text = @"Load this empty track to annotate live sessions.";
+    }
+
     // Configure the cell...
     
     return cell;
